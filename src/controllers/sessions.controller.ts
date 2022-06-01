@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import {verify} from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 import loginUserService from '../services/sessions/loginUser.service';
 import profileUserService from '../services/user/profileUser.service';
-
 class SessionController {
   static login(req: Request, res: Response) {
     try {
@@ -21,6 +20,12 @@ class SessionController {
   static profile(req: Request, res: Response) {
     try {
       const token = req.headers.authorization;
+
+      if (!token) {
+        return res
+          .status(401)
+          .json({ message: 'missing authorization headers' });
+      }
 
       verify(token, 'SECRET_KEY', (error, decoded: any) => {
         const id = decoded.id;

@@ -5,11 +5,11 @@ import listUsersService from '../services/user/listUsers.service';
 import updateUserService from '../services/user/updateUser.service';
 
 class UserController {
-    static create(req: Request, res: Response) {
+  static async create(req: Request, res: Response) {
     try {
       const { name, email, password, isAdm } = req.body;
 
-      const user = createUserService(name, email, password, isAdm);
+      const user = await createUserService({ name, email, password, isAdm });
 
       return res.status(201).json(user);
     } catch (error) {
@@ -37,7 +37,7 @@ class UserController {
 
       const { name, email } = req.body;
 
-      const updateUser = updateUserService(id, name, email);
+      const updateUser = updateUserService(id, { name, email });
 
       return res.status(200).json(updateUser);
     } catch (error) {
@@ -62,4 +62,4 @@ class UserController {
   }
 }
 
-export default UserController
+export default UserController;

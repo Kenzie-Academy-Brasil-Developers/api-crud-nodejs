@@ -1,16 +1,15 @@
 import users from '../../database';
 
 const deleteUserService = (id: string) => {
+  const userIndex = users.findIndex((element) => element.uuid === id);
 
-    const userIndex = users.findIndex((element) => element.id === id)
+  if (userIndex === -1) {
+    throw new Error('user not found');
+  }
 
-    if(userIndex === -1){
-        throw new Error("user not found") 
-    }
+  users.splice(userIndex, 1);
 
-    users.splice(userIndex, 1)
+  return 'user deleted';
+};
 
-    return "user deleted"
-}
-
-export default deleteUserService
+export default deleteUserService;

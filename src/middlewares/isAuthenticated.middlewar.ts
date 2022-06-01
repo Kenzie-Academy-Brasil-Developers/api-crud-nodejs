@@ -17,4 +17,4 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export default isAuthenticated
+export default isAuthenticated;

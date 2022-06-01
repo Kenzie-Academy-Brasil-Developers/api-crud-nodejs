@@ -1,7 +1,20 @@
-import users from "../../database"
+import users from '../../database';
 
 const listUsersService = () => {
-    return users
-}
+  const usersList = users.map(
+    ({ uuid, name, email, isAdm, createdOn, updatedOn }) => {
+      return {
+        uuid,
+        name,
+        email,
+        isAdm,
+        createdOn,
+        updatedOn,
+      };
+    }
+  );
 
-export default listUsersService
+  return usersList;
+};
+
+export default listUsersService;
