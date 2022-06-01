@@ -11,7 +11,7 @@ const profileUserService = (id: string) => {
     name: user.name,
     email: user.email,
     isAdm: user.isAdm,
-    id: user.uuid,
+    uuid: user.uuid,
     createdOn: user.createdOn,
     updatedOn: user.updatedOn,
   };

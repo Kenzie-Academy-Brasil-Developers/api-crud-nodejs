@@ -28,6 +28,7 @@ const loginNotAdm = {
 describe('Testes rota POST /users', () => {
   it('Testando criação de usuário com um corpo correto', async () => {
     const response = await request(app).post('/users').send(userAdm);
+
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('name');
     expect(response.body).toHaveProperty('email');
@@ -76,7 +77,7 @@ describe('Testando rota GET /users', () => {
 
     const response = await request(app)
       .get('/users')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
@@ -98,7 +99,8 @@ describe('Testando rota GET /users', () => {
     const { token } = login.body;
     const response = await request(app)
       .get('/users')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
+      
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty('message', 'Unauthorized');
   });
@@ -110,7 +112,7 @@ describe('Testando rota GET /users/profile', () => {
     const { token } = login.body;
     const response = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     expect(response.body).toHaveProperty('uuid');
     expect(response.body).toHaveProperty('createdOn');
@@ -148,7 +150,7 @@ describe('Testando rota PATCH /users/<uuid>', () => {
     const { token } = login.body;
     const user = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     const response = await request(app)
       .patch(`/users/${user.body.uuid}`)
@@ -166,12 +168,12 @@ describe('Testando rota PATCH /users/<uuid>', () => {
     const { token } = login.body;
     const user = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     const response = await request(app)
       .patch(`/users/${user.body.uuid}`)
       .send(updateNotAdm)
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     expect(response.body).toHaveProperty('uuid');
     expect(response.body).toHaveProperty('createdOn');
@@ -190,12 +192,12 @@ describe('Testando rota PATCH /users/<uuid>', () => {
 
     const adm = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${tokenAdm}`);
+      .set('Authorization', `${tokenAdm}`);
 
     const response = await request(app)
       .patch(`/users/${adm.body.uuid}`)
       .send(updateAdm)
-      .set('Authorization', `Bearer ${tokenNotAdm}`);
+      .set('Authorization', `${tokenNotAdm}`);
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty(
@@ -212,12 +214,12 @@ describe('Testando rota PATCH /users/<uuid>', () => {
 
     const notAdm = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${tokenNotAdm}`);
+      .set('Authorization', `${tokenNotAdm}`);
 
     const response = await request(app)
       .patch(`/users/${notAdm.body.uuid}`)
       .send({ name: 'Ugo Kenzie' })
-      .set('Authorization', `Bearer ${tokenAdm}`);
+      .set('Authorization', `${tokenAdm}`);
 
     expect(response.body).toHaveProperty('name', 'Ugo Kenzie');
   });
@@ -229,7 +231,7 @@ describe('Testando rota DELETE /users/<uuid>', () => {
     const { token } = login.body;
     const user = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     const response = await request(app).delete(`/users/${user.body.uuid}`);
 
@@ -248,11 +250,11 @@ describe('Testando rota DELETE /users/<uuid>', () => {
 
     const adm = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${tokenAdm}`);
+      .set('Authorization', `${tokenAdm}`);
 
     const response = await request(app)
       .delete(`/users/${adm.body.uuid}`)
-      .set('Authorization', `Bearer ${tokenNotAdm}`);
+      .set('Authorization', `${tokenNotAdm}`);
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty(
@@ -269,11 +271,11 @@ describe('Testando rota DELETE /users/<uuid>', () => {
 
     const notAdm = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${tokenNotAdm}`);
+      .set('Authorization', `${tokenNotAdm}`);
 
     const response = await request(app)
       .delete(`/users/${notAdm.body.uuid}`)
-      .set('Authorization', `Bearer ${tokenAdm}`);
+      .set('Authorization', `${tokenAdm}`);
 
     expect(response.body).toHaveProperty(
       'message',
@@ -286,11 +288,11 @@ describe('Testando rota DELETE /users/<uuid>', () => {
     const { token } = login.body;
     const user = await request(app)
       .get('/users/profile')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     const response = await request(app)
       .delete(`/users/${user.body.uuid}`)
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     expect(response.body).toHaveProperty(
       'message',

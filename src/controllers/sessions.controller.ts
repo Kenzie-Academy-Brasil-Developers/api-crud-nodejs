@@ -12,7 +12,7 @@ class SessionController {
       return res.status(200).json(userLogin);
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(401).json({message: error.message});
+        return res.status(401).json({ message: error.message });
       }
     }
   }
@@ -24,7 +24,7 @@ class SessionController {
       if (!token) {
         return res
           .status(401)
-          .json({ message: 'missing authorization headers' });
+          .json({ message: 'Missing authorization headers' });
       }
 
       verify(token, 'SECRET_KEY', (error, decoded: any) => {

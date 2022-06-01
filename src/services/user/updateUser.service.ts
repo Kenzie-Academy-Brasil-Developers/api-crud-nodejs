@@ -29,7 +29,14 @@ const updateUserService = (id: string, data: UserUpdate) => {
     updatedOn: new Date(),
   };
 
-  return users[userIndex];
+  return {
+    name: users[userIndex].name,
+    email: users[userIndex].email,
+    isAdm: users[userIndex].isAdm,
+    uuid: users[userIndex].uuid,
+    createdOn: users[userIndex].createdOn,
+    updatedOn: users[userIndex].updatedOn,
+  }
 };
 
 export default updateUserService;

@@ -21,7 +21,7 @@ const isUser = (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (!user.isAdm && userId !== id) {
-      return res.status(404).json({ message: 'Unauthorazed' });
+      return res.status(401).json({ message: 'Missing admin permissions' });
     }
     next();
   });
