@@ -5,12 +5,12 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   let token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'missing authorization headers' });
+    return res.status(401).json({ message: 'Missing authorization headers' });
   }
 
   jwt.verify(token, 'SECRET_KEY', (error, decoded) => {
     if (error) {
-      return res.status(401).json({ message: 'invalid token' });
+      return res.status(401).json({ message: 'Invalid token' });
     }
 
     next();

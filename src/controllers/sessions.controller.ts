@@ -12,7 +12,7 @@ class SessionController {
       return res.status(200).json(userLogin);
     } catch (error) {
       if (error instanceof Error) {
-        return res.status(400).json(error.message);
+        return res.status(401).json({message: error.message});
       }
     }
   }

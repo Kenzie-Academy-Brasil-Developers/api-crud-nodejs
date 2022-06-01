@@ -6,7 +6,7 @@ const isUser = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'missing authorization headers' });
+    return res.status(401).json({ message: 'Missing authorization headers' });
   }
 
   verify(token, 'SECRET_KEY', (error, decoded: any) => {
@@ -21,7 +21,7 @@ const isUser = (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (!user.isAdm && userId !== id) {
-      return res.status(404).json({ message: 'unauthorazed' });
+      return res.status(404).json({ message: 'Unauthorazed' });
     }
     next();
   });

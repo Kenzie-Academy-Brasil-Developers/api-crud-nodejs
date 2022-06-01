@@ -6,13 +6,13 @@ const loginUserService = (email: string, password: string) => {
   const user = users.find((element) => element.email === email);
 
   if (!user) {
-    return 'invalid email or password';
+    throw new Error('Wrong email/password');
   }
 
   const passwordMatch = bcrypt.compareSync(password, user.password);
 
   if (!passwordMatch) {
-    return 'invalid email or password';
+    throw new Error('Wrong email/password');
   }
 
   const token = jwt.sign({ id: user.uuid }, 'SECRET_KEY', { expiresIn: '24h' });

@@ -7,7 +7,7 @@ const userAlreadyExists = (req: Request, res: Response, next: NextFunction) => {
   const emailExists = users.find((user) => user.email === email);
 
   if (emailExists) {
-    return res.status(400).json({ error: 'this email already exists' });
+    return res.status(400).json({ message: 'E-mail already registered' });
   }
 
   next();
